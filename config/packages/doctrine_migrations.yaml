@@ -1,5 +1,5 @@
 doctrine_migrations:
     migrations_paths:
-        DoctrineMigrations: '%kernel.project_dir%/migrations/doctrine'
+        App\Rewarding\Migrations: '%kernel.project_dir%/migrations/doctrine'
     connection: data
     enable_profiler: false

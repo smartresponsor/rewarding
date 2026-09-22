@@ -59,3 +59,15 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Doctrine mapping validation and Symfony container lint PASS. PostgreSQL migration-currentness is externally blocked because the local `rewarding` connection has no supplied password (`fe_sendauth: no password supplied`); no credential was invented, persisted, or replaced with a false SQLite production check.
 - Growth remains separate: versioned earn/redeem rules, tiers/status progression, benefits, expiry scheduling/source-lot policy, commerce references, and Walleting boundary acceptance.
 
+## 2026-09-22 — Current RC verification refresh
+
+- Re-read current Rewarding boundary, canon map, roadmap/competitor baseline, Composer/runtime configuration, durable ledger service/repository, current migration diff, and the shared dependency/Canonization/Gating contour.
+- Current dirty baseline was preserved: migration namespace/config were already changing from generic DoctrineMigrations to component-owned App\\Rewarding\\Migrations; generated config/reference.php was also present.
+- Market maturity baseline confirms accrual, redemption, expiry, transaction journals, tier assessment, and reversals/adjustments as loyalty concerns; money-like balances, coupons/promotions, payments, and identity truth remain outside Rewarding.
+- The migration namespace change passed full repository acceptance and is retained as RC-critical package/schema identity hardening.
+- composer quality: PASS; PHPUnit 24/24 with 52 assertions, PHPStan clean, CS clean, Playwright 1/1, behavioral evidence generated, Gating 68 rules with 0 failed / 0 warning.
+- Fresh coverage: 99.2% lines, 80.0% methods, 93.5% branches; Canon040 passes.
+- Doctrine mapping validation: PASS.
+- doctrine:migrations:up-to-date is environment-blocked only because localhost:5432 requires a PostgreSQL password not supplied to the current process; no credential is invented or persisted.
+- config/reference.php is generated Symfony evidence and is now ignored rather than committed.
+
