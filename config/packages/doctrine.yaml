@@ -1,0 +1,24 @@
+doctrine:
+    dbal:
+        default_connection: data
+        connections:
+            data:
+                driver: pdo_pgsql
+                url: '%env(default:reward_data_database_url_default:REWARD_DATA_DATABASE_URL)%'
+            infra:
+                driver: pdo_sqlite
+                path: '%kernel.project_dir%/var/infra/rewarding.sqlite'
+    orm:
+        default_entity_manager: data
+        entity_managers:
+            data:
+                connection: data
+                mappings:
+                    Rewarding:
+                        type: attribute
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Rewarding\Entity'
+                        alias: Rewarding
+            infra:
+                connection: infra

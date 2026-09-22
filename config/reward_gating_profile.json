@@ -1,0 +1,17 @@
+{
+  "component": {
+    "name": "Rewarding",
+    "nameEntity": "reward",
+    "namespace": "App\\Rewarding",
+    "business_prefix": "Reward",
+    "subject_prefix": "Reward",
+    "subject_tokens": ["Reward"],
+    "database_prefix": "reward_",
+    "route_owner_root": "reward",
+    "route_owner_roots": ["reward"],
+    "mutation_mode": "guarded",
+    "secret_scan": "enabled",
+    "docblock_preservation": "enabled",
+    "release": {"evidence_required": false}
+  }
+}

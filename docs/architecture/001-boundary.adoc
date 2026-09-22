@@ -1,0 +1,37 @@
+= Rewarding Boundary
+
+== Purpose
+
+Rewarding owns non-monetary loyalty/reward programs: points, tiers, earn/redeem rules, expiry, reversals, and benefits.
+
+== Owns
+
+* reward program
+* member/account reference
+* points/reward ledger
+* earn rules
+* redeem rules
+* tiers and status progression
+* expiry
+* adjustments
+* reversals
+* benefit eligibility
+* reward audit trail
+
+== Does not own
+
+* Store Credit or other money-like balances
+* payment execution
+* promotions or coupons
+* customer identity source of truth
+
+== Store Credit decision
+
+Store Credit must be audited against Walleting before any separate Crediting repository is considered. This materialization does not create Crediting.
+
+== Current materialization scope
+
+The RC slice materializes the non-monetary ledger core: `RewardAccountEntity`, immutable `RewardTransactionEntity`, append-only `RewardTransactionRepository`, and replay-safe earn/redeem/expire/adjust/reverse service behavior. Ledger ordering is represented by account-scoped `ledger_version`; database uniqueness protects both `(account_id, ledger_version)` concurrency and `(account_id, idempotency_key)` replay identity.
+
+Standalone persistence uses PostgreSQL `data` plus SQLite `infra`; bundle mode remains host-composed. Rules, tiers, benefits, Store Credit, coupons, promotions, payment execution, and customer identity truth remain outside this RC slice.
+

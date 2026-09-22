@@ -1,0 +1,26 @@
+= Rewarding Roadmap
+
+== M1
+
+* Reward ledger.
+* Earn, redeem, expire, and adjust operations.
+* Auditable balance.
+
+== M2
+
+* Earn/redeem rules.
+* Tiers.
+* Effective dates and versioning.
+
+== M3
+
+* Benefits.
+* Redemption references.
+* Reversal and idempotency.
+
+== M4
+
+* Walleting Store Credit boundary audit.
+* Competitor benchmark.
+* Stabilize public contracts.
+

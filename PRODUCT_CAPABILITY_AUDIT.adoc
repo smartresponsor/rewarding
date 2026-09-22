@@ -1,0 +1,33 @@
+= Product Capability Audit: Rewarding
+:revdate: 2026-09-20
+
+== Boundary verdict
+
+Rewarding owns non-monetary loyalty points, tiers, earn/redeem rules, expiry, reversals and benefits. Money-like store credit remains Walleting.
+
+== Capability matrix
+
+[cols="3,1,4",options="header"]
+|===
+|Capability |Status |Audit
+|Reward account/reference |IMPLEMENTED |Immutable account entity is mapped to the Rewarding data persistence surface.
+|Immutable points ledger |IMPLEMENTED |Mapped immutable transaction entity, durable DBAL repository, account-scoped ledger version, idempotency uniqueness, and initial migration are implemented.
+|Earn |IMPLEMENTED |Idempotent durable ledger credit implemented; rule selection remains M3.
+|Redeem |IMPLEMENTED |Idempotent durable debit with optimistic version contract and insufficient-balance guard implemented.
+|Expire |PARTIAL |Replay-safe durable expiry debit implemented; scheduler/source-lot policy remains M3.
+|Adjust/reverse |IMPLEMENTED |Durable append-only adjustment and linked reversal implemented.
+|Balance derivation |IMPLEMENTED |Balance is derived from immutable ledger entries.
+|Earn/redeem rules |MISSING |Versioned effective rules.
+|Tiers/status progression |MISSING |Modern loyalty baseline.
+|Benefits |MISSING |Eligibility output; Promoting may consume incentive facts.
+|Redemption references |MISSING |Reference order/cart without owning them.
+|Store credit |NOT_APPLICABLE |Explicitly Walleting, not Rewarding.
+|===
+
+== Milestone direction
+
+M1: RewardAccountEntity + immutable RewardTransactionEntity ledger — implemented with Doctrine mapping, DBAL repository, and initial PostgreSQL migration.
+M2: earn/redeem/expire/adjust/reverse with idempotency — implemented for the explicit ledger-operation slice; expiry scheduling/source-lot policy remains M3.
+M3: rules, tiers and benefits.
+M4: Walleting boundary acceptance and commerce integration.
+

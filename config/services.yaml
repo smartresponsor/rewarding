@@ -1,0 +1,23 @@
+parameters:
+    reward_data_database_url_default: 'postgresql://localhost/rewarding?serverVersion=16&charset=utf8'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Rewarding\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/RewardingBundle.php'
+
+    App\Rewarding\Repository\RewardTransactionRepository:
+        arguments:
+            $connection: '@doctrine.dbal.data_connection'
+
+    App\Rewarding\RepositoryInterface\RewardTransactionRepositoryInterface:
+        alias: App\Rewarding\Repository\RewardTransactionRepository
+
