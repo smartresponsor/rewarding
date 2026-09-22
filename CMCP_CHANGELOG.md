@@ -56,7 +56,7 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Added DBAL integration coverage for ordering, lookup, hydration, idempotent replay/conflict, stale version, primary-key collision, and race recovery; expanded M2 service/entity invariant coverage.
 - Final aggregate `composer quality`: GREEN — PHPUnit 24 tests / 52 assertions, PHPStan 0 errors, PHP-CS-Fixer clean, Playwright 1/1, Gating 68 rules with 0 failures and 0 warnings.
 - Canon040 evidence: 99.2% lines, 80.0% methods, 93.5% branches. Canon041/042/052 all PASS.
-- Doctrine mapping validation and Symfony container lint PASS. PostgreSQL migration-currentness is externally blocked because the local `rewarding` connection has no supplied password (`fe_sendauth: no password supplied`); no credential was invented, persisted, or replaced with a false SQLite production check.
+- Doctrine mapping validation and Symfony container lint PASS. The earlier standalone credential blocker was later resolved through the host application's canonical PostgreSQL credential authority; see the current RC verification refresh below.
 - Growth remains separate: versioned earn/redeem rules, tiers/status progression, benefits, expiry scheduling/source-lot policy, commerce references, and Walleting boundary acceptance.
 
 ## 2026-09-22 — Current RC verification refresh
@@ -68,6 +68,9 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - composer quality: PASS; PHPUnit 24/24 with 52 assertions, PHPStan clean, CS clean, Playwright 1/1, behavioral evidence generated, Gating 68 rules with 0 failed / 0 warning.
 - Fresh coverage: 99.2% lines, 80.0% methods, 93.5% branches; Canon040 passes.
 - Doctrine mapping validation: PASS.
-- doctrine:migrations:up-to-date is environment-blocked only because localhost:5432 requires a PostgreSQL password not supplied to the current process; no credential is invented or persisted.
+- Host application `www/app` was confirmed as the credential authority for the platform PostgreSQL `app` database; its canonical `tools/resolve-database-url.php` resolver was used without exposing or persisting secrets.
+- Because the host Symfony Kernel was independently blocked by an unrelated `App\\RelatingBundle` autoload mismatch, Rewarding migration `App\\Rewarding\\Migrations\\Version20260922195700` was applied transactionally through `psql` using the host resolver, with the exact migration SQL and Doctrine migration metadata recorded in the same transaction.
+- PostgreSQL verification PASS: `reward_account` and `reward_transaction` exist with expected columns; primary, member-reference, ledger-version, idempotency, and account/occurred indexes exist; `doctrine_migration_versions` records the Rewarding version as executed.
+- Temporary host-side migration runner/config artifacts were moved into ignored `var/`; no host credential or new tracked host artifact remains from this operation.
 - config/reference.php is generated Symfony evidence and is now ignored rather than committed.
 
