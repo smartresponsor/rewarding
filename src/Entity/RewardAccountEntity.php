@@ -9,14 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /** Represents a non-monetary loyalty account owned by an external member reference. */
 #[ORM\Entity]
-#[ORM\Table(name: 'reward_account')]
+#[ORM\Table(name: 'reward_account', uniqueConstraints: [new ORM\UniqueConstraint(name: 'reward_account_member_reference_uidx', columns: ['member_reference'])])]
 final readonly class RewardAccountEntity
 {
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: Types::STRING, length: 64)]
         public string $id,
-        #[ORM\Column(name: 'member_reference', type: Types::STRING, length: 191, unique: true)]
+        #[ORM\Column(name: 'member_reference', type: Types::STRING, length: 191)]
         public string $memberReference,
         #[ORM\Column(name: 'created_at', type: Types::DATETIMETZ_IMMUTABLE)]
         public \DateTimeImmutable $createdAt,
