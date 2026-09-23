@@ -18,6 +18,9 @@ interface RewardTransactionRepositoryInterface
     /** Finds the previously accepted mutation for an account-scoped idempotency key. */
     public function findByIdempotencyKey(string $accountId, string $idempotencyKey): ?RewardTransactionEntity;
 
+    /** Finds the immutable reversal already linked to one source transaction. */
+    public function findReversalOf(string $transactionId): ?RewardTransactionEntity;
+
     /** Appends one immutable entry only when the account ledger still has the expected version. */
     public function append(RewardTransactionEntity $transaction, int $expectedVersion): RewardTransactionEntity;
 }

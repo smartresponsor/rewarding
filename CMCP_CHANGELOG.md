@@ -74,3 +74,15 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Temporary host-side migration runner/config artifacts were moved into ignored `var/`; no host credential or new tracked host artifact remains from this operation.
 - config/reference.php is generated Symfony evidence and is now ignored rather than committed.
 
+## 2026-09-22 — Reversal uniqueness hardening
+
+- Re-read current ledger entity/repository/service, integration fixtures, migration history, Rewarding boundary, and current market maturity signals for points expiry/tier lifecycle.
+- RC-critical defect found: a source ledger transaction could be reversed more than once when callers used different idempotency keys, allowing duplicate compensating entries.
+- Added `RewardTransactionRepositoryInterface::findReversalOf()` and DBAL implementation.
+- Added explicit `RewardAlreadyReversedException` and service-level guard while preserving same-idempotency replay semantics.
+- Added Doctrine uniqueness for `reverses_transaction_id` and a forward migration rather than rewriting the already-applied initial migration.
+- Added unit/integration coverage for reversal lookup, same-key replay, duplicate reversal rejection, and database uniqueness.
+- Verification after implementation: PHPUnit 28 tests / 59 assertions GREEN; PHPStan GREEN; PHP-CS-Fixer GREEN; RC validation GREEN; Playwright remains GREEN. Coverage is 99.24% lines, 80.95% methods, and 94.17% branches.
+- Remaining external acceptance blockers are unchanged: Canon023 currently requires every sibling path repository to use `symlink=true`, while newer Canon053 forbids sibling symlinks except Gating, Cruding, Viewing, and Interfacing. Rewarding cannot resolve that normative Canonization contradiction locally.
+- Local Doctrine dry-run migration planning remains blocked by absent standalone PostgreSQL credentials; mapping itself remains valid.
+

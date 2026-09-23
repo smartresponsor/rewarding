@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
     uniqueConstraints: [
         new ORM\UniqueConstraint(name: 'reward_transaction_account_version_uidx', columns: ['account_id', 'ledger_version']),
         new ORM\UniqueConstraint(name: 'reward_transaction_idempotency_uidx', columns: ['account_id', 'idempotency_key']),
+        new ORM\UniqueConstraint(name: 'reward_transaction_reversal_uidx', columns: ['reverses_transaction_id']),
     ],
 )]
 final readonly class RewardTransactionEntity

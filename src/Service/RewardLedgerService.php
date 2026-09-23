@@ -6,6 +6,7 @@ namespace App\Rewarding\Service;
 
 use App\Rewarding\Entity\RewardTransactionEntity;
 use App\Rewarding\Enum\RewardTransactionType;
+use App\Rewarding\Exception\RewardAlreadyReversedException;
 use App\Rewarding\Exception\RewardIdempotencyConflictException;
 use App\Rewarding\Exception\RewardInsufficientBalanceException;
 use App\Rewarding\RepositoryInterface\RewardTransactionRepositoryInterface;
@@ -76,11 +77,24 @@ final readonly class RewardLedgerService
         if (null === $original) {
             throw new \InvalidArgumentException('Reward transaction to reverse was not found.');
         }
+
+        $candidate = new RewardTransactionEntity($transactionId, $original->accountId, $expectedVersion + 1, RewardTransactionType::Reverse, -$original->points, $idempotencyKey, $occurredAt, $original->reference, $original->id);
+        $existing = $this->transactions->findByIdempotencyKey($original->accountId, $idempotencyKey);
+        if (null !== $existing) {
+            if ($existing->fingerprint() !== $candidate->fingerprint()) {
+                throw new RewardIdempotencyConflictException('Reward idempotency key was reused with different mutation data.');
+            }
+
+            return $existing;
+        }
+        if (null !== $this->transactions->findReversalOf($original->id)) {
+            throw new RewardAlreadyReversedException('Reward transaction has already been reversed.');
+        }
         if ($original->points > 0 && $this->balance($original->accountId) < $original->points) {
             throw new RewardInsufficientBalanceException('Reward reversal would make the points balance negative.');
         }
 
-        return $this->appendIdempotently(new RewardTransactionEntity($transactionId, $original->accountId, $expectedVersion + 1, RewardTransactionType::Reverse, -$original->points, $idempotencyKey, $occurredAt, $original->reference, $original->id), $expectedVersion);
+        return $this->transactions->append($candidate, $expectedVersion);
     }
 
     private function debit(RewardTransactionType $type, string $transactionId, string $accountId, int $points, string $idempotencyKey, \DateTimeImmutable $occurredAt, int $expectedVersion, ?string $reference): RewardTransactionEntity

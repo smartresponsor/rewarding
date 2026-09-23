@@ -57,6 +57,18 @@ final readonly class RewardTransactionRepository implements RewardTransactionRep
         return false === $row ? null : $this->hydrate($row);
     }
 
+    public function findReversalOf(string $transactionId): ?RewardTransactionEntity
+    {
+        $row = $this->connection->fetchAssociative(
+            'SELECT id, account_id, ledger_version, type, points, idempotency_key, occurred_at, reference, reverses_transaction_id
+             FROM reward_transaction
+             WHERE reverses_transaction_id = :transaction_id',
+            ['transaction_id' => $transactionId],
+        );
+
+        return false === $row ? null : $this->hydrate($row);
+    }
+
     public function append(RewardTransactionEntity $transaction, int $expectedVersion): RewardTransactionEntity
     {
         if ($transaction->ledgerVersion !== $expectedVersion + 1) {

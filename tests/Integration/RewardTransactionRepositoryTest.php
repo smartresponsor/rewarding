@@ -37,6 +37,7 @@ final class RewardTransactionRepositoryTest extends TestCase
         );
         $connection->executeStatement('CREATE UNIQUE INDEX reward_transaction_account_version_uidx ON reward_transaction (account_id, ledger_version)');
         $connection->executeStatement('CREATE UNIQUE INDEX reward_transaction_idempotency_uidx ON reward_transaction (account_id, idempotency_key)');
+        $connection->executeStatement('CREATE UNIQUE INDEX reward_transaction_reversal_uidx ON reward_transaction (reverses_transaction_id)');
 
         $this->repository = new RewardTransactionRepository($connection);
     }
@@ -118,6 +119,40 @@ final class RewardTransactionRepositoryTest extends TestCase
         self::assertNull($firstHydrated?->reversesTransactionId);
         self::assertSame('order-1', $secondHydrated->reference);
         self::assertSame('tx-1', $secondHydrated->reversesTransactionId);
+        self::assertSame('tx-2', $this->repository->findReversalOf('tx-1')?->id);
+        self::assertNull($this->repository->findReversalOf('missing'));
+    }
+
+    public function testDatabaseUniquenessRejectsSecondReversalOfSameSource(): void
+    {
+        $this->repository->append($this->transaction('tx-1', 1, 'earn-1', 100), 0);
+        $firstReversal = new RewardTransactionEntity(
+            'tx-2',
+            'account-1',
+            2,
+            RewardTransactionType::Reverse,
+            -100,
+            'reverse-1',
+            new \DateTimeImmutable('2026-09-22T13:00:00+00:00'),
+            'order-1',
+            'tx-1',
+        );
+        $this->repository->append($firstReversal, 1);
+
+        $duplicateReversal = new RewardTransactionEntity(
+            'tx-3',
+            'account-1',
+            3,
+            RewardTransactionType::Reverse,
+            -100,
+            'reverse-2',
+            new \DateTimeImmutable('2026-09-22T14:00:00+00:00'),
+            'order-1',
+            'tx-1',
+        );
+
+        $this->expectException(RewardConcurrencyException::class);
+        $this->repository->append($duplicateReversal, 2);
     }
 
     public function testPrimaryKeyCollisionIsReportedAsConcurrencyConflict(): void

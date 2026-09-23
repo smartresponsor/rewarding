@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Rewarding\Tests\Unit;
 
 use App\Rewarding\Entity\RewardTransactionEntity;
+use App\Rewarding\Exception\RewardAlreadyReversedException;
 use App\Rewarding\Exception\RewardConcurrencyException;
 use App\Rewarding\Exception\RewardIdempotencyConflictException;
 use App\Rewarding\Exception\RewardInsufficientBalanceException;
@@ -140,6 +141,44 @@ final class RewardLedgerServiceTest extends TestCase
         self::assertSame('tx-1', $reversal->reversesTransactionId);
         self::assertSame(0, $service->balance('account-1'));
     }
+
+    public function testReverseReplayReturnsExistingEntryWithoutCreatingSecondReversal(): void
+    {
+        $repository = new RewardInMemoryTransactionRepository();
+        $service = new RewardLedgerService($repository);
+        $at = new \DateTimeImmutable('2026-09-20T12:00:00+00:00');
+        $service->earn('tx-1', 'account-1', 80, 'earn-1', $at, 0, 'order-1');
+        $reversal = $service->reverse('tx-2', 'tx-1', 'reverse-1', $at, 1);
+        $replayed = $service->reverse('tx-ignored', 'tx-1', 'reverse-1', $at, 2);
+
+        self::assertSame($reversal, $replayed);
+        self::assertCount(2, $repository->findForAccount('account-1'));
+    }
+
+    public function testSourceTransactionCannotBeReversedTwiceWithDifferentIdempotencyKeys(): void
+    {
+        $repository = new RewardInMemoryTransactionRepository();
+        $service = new RewardLedgerService($repository);
+        $at = new \DateTimeImmutable('2026-09-20T12:00:00+00:00');
+        $service->earn('tx-1', 'account-1', 80, 'earn-1', $at, 0, 'order-1');
+        $service->reverse('tx-2', 'tx-1', 'reverse-1', $at, 1);
+
+        $this->expectException(RewardAlreadyReversedException::class);
+        $service->reverse('tx-3', 'tx-1', 'reverse-2', $at, 2);
+    }
+
+    public function testReverseIdempotencyKeyCannotBeReusedForDifferentSource(): void
+    {
+        $repository = new RewardInMemoryTransactionRepository();
+        $service = new RewardLedgerService($repository);
+        $at = new \DateTimeImmutable('2026-09-20T12:00:00+00:00');
+        $service->earn('tx-1', 'account-1', 80, 'earn-1', $at, 0, 'order-1');
+        $service->earn('tx-2', 'account-1', 20, 'earn-2', $at, 1, 'order-2');
+        $service->reverse('tx-3', 'tx-1', 'reverse-shared', $at, 2);
+
+        $this->expectException(RewardIdempotencyConflictException::class);
+        $service->reverse('tx-4', 'tx-2', 'reverse-shared', $at, 3);
+    }
 }
 
 final class RewardInMemoryTransactionRepository implements RewardTransactionRepositoryInterface
@@ -167,6 +206,17 @@ final class RewardInMemoryTransactionRepository implements RewardTransactionRepo
     {
         foreach ($this->transactions as $transaction) {
             if ($transaction->accountId === $accountId && $transaction->idempotencyKey === $idempotencyKey) {
+                return $transaction;
+            }
+        }
+
+        return null;
+    }
+
+    public function findReversalOf(string $transactionId): ?RewardTransactionEntity
+    {
+        foreach ($this->transactions as $transaction) {
+            if ($transaction->reversesTransactionId === $transactionId) {
                 return $transaction;
             }
         }
