@@ -99,3 +99,14 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Gating now has only one external/tooling blocker: Canon055 recursively scans ignored generated copies under `var/embedded-gating-owner-copy` and `var/legacy-gating-embedded`. All tracked Rewarding Canon055 findings are fixed. Rewarding does not modify Gating rule implementation or delete arbitrary generated `var/` trees across the component boundary.
 - Pre-existing dirty `.gating/` artifact state was preserved and excluded from Rewarding-owned commit scope.
 
+## 2026-09-24 — Host PostgreSQL migration acceptance
+
+- User confirmed the shared host application at `www/App` as the PostgreSQL credential authority. Rewarding does not persist or print those credentials.
+- Added `tool/rewarding-host-db.ps1`, a bounded development/acceptance runner that resolves the host database connection through `App/tools/resolve-database-url.php`, injects it only as `REWARD_DATA_DATABASE_URL` for the child Rewarding Symfony process, and delegates status/dry-run/migrate operations to Doctrine.
+- The host-authorized migration check exposed a real RC defect: `Version20260923002800.php` was missing the final class-closing brace. Direct `php -l` reproduced the parse failure; the migration was repaired without changing its SQL semantics and then linted successfully.
+- Doctrine status then reported exactly one new Rewarding migration: `App\\Rewarding\\Migrations\\Version20260923002800`. The 113 executed-but-unavailable versions are host/component migrations outside Rewarding's local migration namespace and are not Rewarding pending work.
+- Standard Doctrine dry-run and migrate both completed successfully against the host `app` PostgreSQL database. Post-migration status reports zero new Rewarding migrations.
+- PostgreSQL evidence confirms `reward_transaction_reversal_uidx` now exists and `doctrine_migration_versions` records `App\\Rewarding\\Migrations\\Version20260923002800` as executed.
+- Post-migration regression verification: PHPUnit 28/28 with 59 assertions PASS; PHPStan PASS; PHP-CS-Fixer dry-run PASS; Doctrine mapping PASS.
+- Gating remains externally blocked only by Canon055 scanning ignored generated copies under `var/embedded-gating-owner-copy` and `var/legacy-gating-embedded`; no tracked Rewarding Canon055 finding remains.
+

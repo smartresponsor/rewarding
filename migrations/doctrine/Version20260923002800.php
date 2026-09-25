@@ -23,3 +23,4 @@ final class Version20260923002800 extends AbstractMigration
     {
         $this->addSql('DROP INDEX reward_transaction_reversal_uidx');
     }
+}
