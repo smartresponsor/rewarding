@@ -1,6 +1,6 @@
 {
   "name": "rewarding/reward",
-  "description": "SmartResponsor Rewarding component for non-monetary loyalty programs, points, tiers, earn/redeem rules, expiry, reversals, and benefits.",
+  "description": "Rewarding platform component for non-monetary loyalty programs, points, tiers, earn/redeem rules, expiry, reversals, and benefits.",
   "type": "symfony-bundle",
   "license": "proprietary",
   "minimum-stability": "dev",

@@ -86,3 +86,16 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Remaining external acceptance blockers are unchanged: Canon023 currently requires every sibling path repository to use `symlink=true`, while newer Canon053 forbids sibling symlinks except Gating, Cruding, Viewing, and Interfacing. Rewarding cannot resolve that normative Canonization contradiction locally.
 - Local Doctrine dry-run migration planning remains blocked by absent standalone PostgreSQL credentials; mapping itself remains valid.
 
+## 2026-09-24 — RC convergence refresh
+
+- Continued from the existing Rewarding RC baseline without restarting materialization or rewriting historical migrations.
+- Re-read the current Rewarding boundary, Composer development/production manifests, ledger implementation/tests, Objecting/Cruding/Viewing/Interfacing contracts, Gating, Canonization AGENTS guidance, and the materialized Canonization rule texts relevant to Rewarding.
+- Current Canon053 supersedes the older blocker recorded above: its allowed sibling-symlink exceptions now include Gating, Cruding, Viewing, Interfacing, Collectioning, Objecting, Tabling, Runtime, Indexing, Discovering, Administering, Accessing, and Configuring. Rewarding's current sibling path repositories are inside that allowed contour, so the earlier Canon023/Canon053 contradiction is no longer an active Rewarding blocker.
+- Market/competitor refresh covered current Talon.One, Voucherify, and Open Loyalty material. Mature loyalty baselines continue to include transaction history, idempotent mutation handling, concurrency protection, configurable expiry, earning/redemption rules, and tier lifecycle. RC remains focused on ledger correctness and operability; versioned rules, tiers/status, benefits, and source-lot expiry policy remain growth work.
+- Canon055 introduced a new neutral platform-identity requirement. Updated Rewarding README and development/production Composer descriptions to remove consumer branding from the component's human-facing identity while preserving package and machine identifiers.
+- PHPUnit PASS: 28 tests / 59 assertions. PHPStan PASS. PHP-CS-Fixer dry-run PASS. Playwright PASS: 1/1. Behavioral/UI evidence regenerated.
+- Fresh coverage PASS against Canon040 thresholds: 99.24% lines, 80.95% methods, 94.17% branches.
+- Doctrine mapping validation PASS. The standalone migration up-to-date check remains environment-blocked because the standalone process has no PostgreSQL password; no schema defect was reported before authentication failed.
+- Gating now has only one external/tooling blocker: Canon055 recursively scans ignored generated copies under `var/embedded-gating-owner-copy` and `var/legacy-gating-embedded`. All tracked Rewarding Canon055 findings are fixed. Rewarding does not modify Gating rule implementation or delete arbitrary generated `var/` trees across the component boundary.
+- Pre-existing dirty `.gating/` artifact state was preserved and excluded from Rewarding-owned commit scope.
+
