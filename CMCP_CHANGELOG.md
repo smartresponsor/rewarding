@@ -118,3 +118,14 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - PostgreSQL migration acceptance remains complete: `Version20260923002800` is executed and `reward_transaction_reversal_uidx` exists.
 - No Rewarding-owned RC blocker remains. The only dirty worktree state is the pre-existing `.gating/` artifact contour, intentionally preserved and excluded from product commits.
 
+## 2026-09-25 — Autonomous RC verification refresh
+
+- Re-read the authoritative task specification, current Rewarding documentation/source/tests/runtime configuration, mandatory Objecting/Cruding/Viewing/Interfacing dependency contour, current Canonization textual rules, and Gating enforcement contour before making conclusions.
+- Market/competitor refresh covered current Talon.One loyalty idempotency, transaction/history, expiry, and tier lifecycle plus Medusa's 2026 loyalty surface. RC-critical scope remains ledger correctness, replay safety, concurrency, persistence, diagnostics, and verification; versioned rules, tiers/status progression, benefits, and advanced expiry policy remain growth work.
+- Target-to-canon refresh: Canon000/004/007/009/018/020/022/023/024/025/026/029/031/032/033/034/039/040/041/042/043/052/053/054/055 were consulted. Rewarding remains `rewarding/reward` -> `App\\Rewarding\\` -> `Reward*`; typed Symfony roots and zero generic CRUD ownership are preserved; development sibling symlinks stay inside the Canon053 exception contour; production remains path-independent; Doctrine uses `underscore_number_aware` and deterministic lower_snake_case identifiers; consumer `.gating/` remains artifact-only.
+- Existing dirty `.gating/` state was present before this pass and was preserved without mutation or ownership attribution.
+- Managed Symfony runtime probe on 127.0.0.1:8093 found no running server, so the existing Playwright test stack was allowed to start its bounded test server; no healthy runtime was restarted.
+- Fresh RC validation is GREEN with zero canon issues and zero readiness blockers. `composer quality` is GREEN: PHPUnit 28/28 with 59 assertions, PHPStan clean, PHP-CS-Fixer clean, Playwright 1/1, behavioral coverage evidence regenerated, and Gating 9 rules with 0 failures / 0 warnings / 0 skipped.
+- Fresh branch coverage execution is GREEN and Doctrine mapping validation is GREEN. No product-code, API, browser UI, navigation, form, or user-flow change was justified by the current evidence, so no product patch or new screenshot evidence was required.
+- RC result: no Rewarding-owned release blocker or safe in-scope technical-debt tail remains on the inspected HEAD; growth work remains explicitly non-blocking.
+
