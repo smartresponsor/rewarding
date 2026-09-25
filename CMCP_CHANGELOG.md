@@ -110,3 +110,11 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Post-migration regression verification: PHPUnit 28/28 with 59 assertions PASS; PHPStan PASS; PHP-CS-Fixer dry-run PASS; Doctrine mapping PASS.
 - Gating remains externally blocked only by Canon055 scanning ignored generated copies under `var/embedded-gating-owner-copy` and `var/legacy-gating-embedded`; no tracked Rewarding Canon055 finding remains.
 
+## 2026-09-24 — Final RC acceptance after Gating repair
+
+- The remaining Canon055 blocker was resolved in the owning Gating repository by excluding standard generated/dependency roots from current human-facing documentation scanning.
+- Gating regression coverage now proves generated documentation under `var/` is excluded; Gating full quality is GREEN and the fix is published as `f5a61b6`.
+- Rewarding full `composer quality` after the Gating fix is GREEN: PHPUnit 28/28 with 59 assertions, PHPStan clean, PHP-CS-Fixer clean, Playwright 1/1, behavioral evidence generated, and Gating 9 rules with 0 failures / 0 warnings / 0 skipped.
+- PostgreSQL migration acceptance remains complete: `Version20260923002800` is executed and `reward_transaction_reversal_uidx` exists.
+- No Rewarding-owned RC blocker remains. The only dirty worktree state is the pre-existing `.gating/` artifact contour, intentionally preserved and excluded from product commits.
+
