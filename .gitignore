@@ -14,6 +14,7 @@ node_modules/
 /config/reference.php
 /.env.local
 /.env.*.local
+/.gating/*
 !/.gating/
 !/.gating/README.md
 

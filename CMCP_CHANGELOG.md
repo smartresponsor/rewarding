@@ -129,3 +129,10 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Fresh branch coverage execution is GREEN and Doctrine mapping validation is GREEN. No product-code, API, browser UI, navigation, form, or user-flow change was justified by the current evidence, so no product patch or new screenshot evidence was required.
 - RC result: no Rewarding-owned release blocker or safe in-scope technical-debt tail remains on the inspected HEAD; growth work remains explicitly non-blocking.
 
+## 2026-09-25 — `.gating` artifact-boundary hardening
+
+- Inspected the pre-existing dirty `.gating/` contour semantically instead of treating it as disposable noise. The untracked tree is a materialized Gating owner pack (`gating-gate-pack-v1`), not Rewarding product source.
+- The modified tracked `.gating/README.md` had been replaced with the Gating owner README. Restored the Rewarding consumer README content so `.gating/` remains documented as artifact-only per Canon052.
+- Added `/.gating/*` to the root ignore contract while explicitly retaining `/.gating/README.md`. This preserves generated reports/evidence/cache and any accidentally materialized owner pack on disk without letting them dirty Rewarding or become commit candidates.
+- No generated `.gating/` owner files were staged, committed, or deleted; repository ownership boundaries were preserved.
+
