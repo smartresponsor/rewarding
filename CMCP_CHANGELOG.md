@@ -136,3 +136,27 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Added `/.gating/*` to the root ignore contract while explicitly retaining `/.gating/README.md`. This preserves generated reports/evidence/cache and any accidentally materialized owner pack on disk without letting them dirty Rewarding or become commit candidates.
 - No generated `.gating/` owner files were staged, committed, or deleted; repository ownership boundaries were preserved.
 
+
+## 2026-09-26 — Autonomous RC acceptance refresh
+
+- Re-read the authoritative execution specification, current Rewarding boundary/canon/roadmap/competitor docs, Composer manifests, ledger entities/repository/service/tests, and the mandatory Objecting, Cruding, Viewing, Interfacing, Gating, and Canonization contour before mutation.
+- Fresh market baseline: mature loyalty systems treat transaction history as durable state, support expiry and reversal/return handling, and separate configurable program/rule evolution from already-recorded transactions. Medusa's 2026 loyalty surface also includes money-like gift-card/store-credit capabilities, which remain explicitly outside Rewarding's non-monetary boundary.
+- RC-critical work remains ledger correctness, replay safety, concurrency, persistence, diagnostics, and ownership-boundary integrity. Growth remains versioned earn/redeem rules, tiers/status progression, benefits, richer expiry/source-lot policy, and commerce-facing orchestration.
+- Canon mapping confirmed: `rewarding/reward` -> `App\\Rewarding\\` -> `Reward*`; no `src/Domain` or Port/Adapter/Adaptor roots; generic CRUD remains in Cruding; Viewing owns final rendering decisions; Interfacing remains the interface/template provider; `.gating/` is consumer artifact state, not a copy of Gating owner documentation or policy.
+- Factual baseline: `master` at `a41653fefe479a87b4827bdeaf920f812b961249`, aligned with `origin/master`, with exactly one modified tracked path: `.gating/README.md`.
+- The dirty `.gating/README.md` was a materialized copy of the Gating owner README. This contradicted the Rewarding consumer-artifact boundary and the prior recorded hardening intent. The canonical Rewarding consumer README from HEAD was restored; generated artifact content was neither deleted nor promoted into product source.
+- Material risks to verify: deterministic quality gates, Doctrine mapping/migration posture, Playwright behavioral smoke, and post-repair Git cleanliness/integration state.
+- Gates selected: Composer validation, PHPUnit, PHPStan, PHP-CS-Fixer dry-run, Playwright/UI quality, behavioral coverage, Gating, Doctrine checks where environment-applicable, PHP lint, and final Git branch/status verification.
+
+### 2026-09-26 verification result
+
+- Composer validate strict: GREEN.
+- PHPUnit: GREEN, 28 tests / 59 assertions.
+- PHPStan: GREEN, 0 errors.
+- PHP-CS-Fixer dry-run: GREEN, 0 files requiring fixes.
+- Playwright runtime smoke: GREEN, 1/1; it started its bounded local PHP test server only because no healthy managed runtime was present.
+- Behavioral coverage evidence regenerated successfully.
+- Gating: GREEN, 9 rules, 0 failed / 0 warning / 0 skipped.
+- Coverage: 99.24% lines, 80.95% methods, 94.17% branches.
+- Doctrine mapping: GREEN. Standalone migration check remains credential-inapplicable, but the canonical host DB acceptance runner reports 0 new Rewarding migrations and latest available Rewarding migration `Version20260923002800` already applied. The 113 executed-unavailable rows are host/component migrations outside the local Rewarding namespace.
+- Final tracked diff after repair contains only this orchestration journal; `.gating/README.md` now matches HEAD again. No product code or user-observable UI changed, so no new screenshot artifact is required.
