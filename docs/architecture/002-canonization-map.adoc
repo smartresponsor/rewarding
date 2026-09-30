@@ -20,5 +20,6 @@
 | Canon034 | Repository-noise categories are ignored.
 | Canon039 | PHPUnit includes `src/`, branch coverage, and persistent text summary execution.
 | Canon043 | Local sibling dependencies use exact `dev-master` and path version identity.
+| Canon067 | `rewarding/reward` owns canonical root `src/Entity/Reward/RewardEntity.php`; `RewardAccountEntity` and `RewardTransactionEntity` remain domain-specific ledger entities.
 |===
 

@@ -217,3 +217,18 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - The currently materialized `CanonScanning/bin/canon-scan.ps1` still executes `robocopy $GatingPath $localGating /MIR`; therefore the external CanonScanning producer defect remains active and a full scan would recreate forbidden owner state in consumer `.gating/`.
 - Because no `src/` PHP changed, the supplied Inspecting PHP-structure evidence with zero findings remains reusable for the inspected scope under the task evidence contract.
 - Final Rewarding-local acceptance is GREEN; the only remaining task-level blocker is outside the Rewarding repository boundary in CanonScanning orchestration.
+
+
+## 2026-09-30 — updated Gating/Canon067 closure
+
+- Re-read the current Gating and Canonization contracts after their rule update rather than relying on the prior Canon052 snapshot.
+- CanonScanning no longer mirrors the Gating owner tree into consumer `.gating/`; the former Canon052 orchestration blocker is resolved. Fresh CanonScanning uses the owner runtime directly and Canon052 passes.
+- New Canon067 is applicable to `rewarding/reward` and requires `src/Entity/Reward/RewardEntity.php`. Existing `RewardAccountEntity` and `RewardTransactionEntity` are domain-specific ledger entities and do not satisfy the repository-root requirement.
+- Added canonical Doctrine root `App\\Rewarding\\Entity\\Reward\\RewardEntity` as the minimal persistence identity/relationship-composition anchor, plus forward migration `Version20260930193400` creating table `reward`, unit coverage, and Canonization-map documentation.
+- The host-authorized migration runner dry-run and apply both succeeded; follow-up status reports zero new Rewarding migrations and latest available `App\\Rewarding\\Migrations\\Version20260930193400` applied. The 117 executed-unavailable rows are shared-host migrations outside Rewarding's local namespace.
+- Full `composer quality`: GREEN — PHPUnit 29/29 with 61 assertions, PHPStan 0 errors, PHP-CS-Fixer clean, Playwright 1/1, behavioral evidence regenerated, profile Gating 9/9.
+- Fresh Canon040 evidence: 99.24% lines (132/133), 80.95% methods (17/21), 94.17% branches (97/103), all above canonical thresholds.
+- Doctrine mapping validation: GREEN.
+- Fresh full CanonScanning run `20260930-144220`: GREEN — 69 total rules, 51 passed, 18 skipped, 0 failed, 0 warnings. Canon052 and Canon067 both PASS.
+- Fresh Inspecting evidence from the same run: 0 php-structure findings; Semgrep remained operationally timed out at 60 seconds.
+- No browser/mobile product UI, navigation, form, or user-flow behavior changed; visual screenshot evidence is not applicable.

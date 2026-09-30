@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Rewarding\Tests\Unit;
 
+use App\Rewarding\Entity\Reward\RewardEntity;
 use App\Rewarding\Entity\RewardAccountEntity;
 use App\Rewarding\Entity\RewardTransactionEntity;
 use App\Rewarding\Enum\RewardTransactionType;
@@ -11,6 +12,17 @@ use PHPUnit\Framework\TestCase;
 
 final class RewardEntityTest extends TestCase
 {
+    public function testRootRewardEntityExposesCanonicalIdentity(): void
+    {
+        $createdAt = new \DateTimeImmutable('2026-09-30T00:00:00+00:00');
+        $reward = new RewardEntity();
+        $reward->id = 'reward-1';
+        $reward->createdAt = $createdAt;
+
+        self::assertSame('reward-1', $reward->id);
+        self::assertSame($createdAt, $reward->createdAt);
+    }
+
     public function testAccountAndTransactionExposeStableIdentityAndFingerprint(): void
     {
         $at = new \DateTimeImmutable('2026-09-22T12:00:00+00:00');
