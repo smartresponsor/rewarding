@@ -208,3 +208,12 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Fresh supplied Inspecting evidence remains applicable to PHP structure because no `src/` PHP was changed in this pass. A post-mutation Inspecting launch was attempted, but the orchestration call timed out before a durable result was returned; no RED Inspecting finding was observed.
 - The canonical full CanonScanning acceptance remains externally blocked by the already-documented CanonScanning `/MIR` behavior that recreates forbidden Gating owner state inside consumer `.gating/`. Re-running that producer unchanged would deterministically recreate the same Canon052 failure rather than validate Rewarding.
 - No product PHP, schema, route, browser/mobile UI, navigation, form, or user-flow behavior changed; visual evidence is not applicable.
+
+### 2026-09-29 continued acceptance
+
+- Runtime capacity recovered sufficiently for the direct Composer acceptance path. Full `composer quality` is GREEN: PHPUnit 28/28 with 59 assertions, PHPStan 0 errors, PHP-CS-Fixer dry-run 0 fixes, Playwright 1/1, behavioral coverage regenerated, and profile-scoped Gating 9/9 with 0 failures/warnings/skips.
+- Fresh Xdebug branch coverage is GREEN against Canon040 thresholds: 99.24% lines (132/133), 80.95% methods (17/21), and 94.17% branches (97/103).
+- Doctrine mapping validation is GREEN; database synchronicity is intentionally skipped by the repository's `--skip-sync` schema script.
+- The currently materialized `CanonScanning/bin/canon-scan.ps1` still executes `robocopy $GatingPath $localGating /MIR`; therefore the external CanonScanning producer defect remains active and a full scan would recreate forbidden owner state in consumer `.gating/`.
+- Because no `src/` PHP changed, the supplied Inspecting PHP-structure evidence with zero findings remains reusable for the inspected scope under the task evidence contract.
+- Final Rewarding-local acceptance is GREEN; the only remaining task-level blocker is outside the Rewarding repository boundary in CanonScanning orchestration.
