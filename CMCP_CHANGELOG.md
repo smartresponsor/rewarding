@@ -182,3 +182,29 @@ Validation: Composer validate strict GREEN; changed PHP lint GREEN; PHPUnit GREE
 - Repository search found no Rewarding source/tool producer for `gating-gate-pack-v1`; references are journal history and ignore policy only. A compliant Rewarding-only patch cannot make CanonScanning's external `/MIR` materialization legal without weakening Canon052.
 - RC blocker classification: cross-repository orchestration defect in CanonScanning. Resolving it requires a CanonScanning-owned change so the scanner executes canonical Gating from the owner package/policy root without mirroring executable owner state into the consumer artifact surface, followed by fresh Rewarding scanner revalidation.
 - No product PHP, schema, API, route, form, browser/mobile UI, navigation, or user-flow behavior changed in this pass. Behavioral/visual evidence is therefore not applicable.
+
+## 2026-09-29 — engine-20260930014924-rewarding-242b96
+
+- Re-read the authoritative execution specification, current Rewarding docs/source contour, supplied CanonScanning RED report, supplied Inspecting evidence, and the mandatory Objecting/Cruding/Viewing/Interfacing plus Gating/Canonization contracts before mutation.
+- Factual baseline: `master` at `98c36389486e5b9718f1aea704c4fcc3fa5fd8d5`, aligned with `origin/master`, with one tracked modification: `.gating/README.md`.
+- Supplied Inspecting evidence has zero PHP-structure findings; Semgrep timed out. No duplicate pre-remediation Inspecting run was performed.
+- Canon052 is the only supplied Gating failure. Canonization requires consumer-local `.gating/` to contain generated artifacts and a non-executable boundary README only; executable Gating engine/policy copies are prohibited there.
+- Canon052 root cause remains external to Rewarding: CanonScanning's previously documented owner-tree mirroring into the consumer `.gating/` recreates forbidden executable/policy state before its canonical scan.
+- Target mapping remains canonical: `rewarding/reward` -> `App\\Rewarding\\` -> `Reward*`; no generic CRUD ownership, no `src/Domain`, and no Port/Adapter/Adaptor taxonomy is introduced. Objecting/Cruding/Viewing/Interfacing remain declared first-party dependencies.
+- RC-critical work selected: preserve the contaminated `.gating/` tree non-destructively under ignored `var/`, restore the canonical consumer artifact README, then run profile-scoped Gating and deterministic repository quality gates.
+- Growth work remains non-blocking: versioned earn/redeem rules, tier/status progression, benefits, richer expiry/source-lot policy, and commerce-facing integration. Money-like Store Credit, payments, promotions/coupons, and identity ownership remain outside Rewarding.
+- Gates to run after repair: Gating, Composer validation, PHPUnit, PHPStan, PHP-CS-Fixer dry-run, behavioral/UI smoke where configured, PHP lint, applicable Doctrine checks, Inspecting post-mutation, and final Git branch/worktree verification.
+
+### 2026-09-29 verification result
+
+- Consumer `.gating/` topology is restored: the tracked surface is again only the canonical 7-line non-executable artifact README; the contaminated owner copy is preserved under ignored `var/cmcp-preserved-gating-engine-20260930-014924`.
+- Composer validate strict: GREEN.
+- PHPUnit: GREEN, 28 tests / 59 assertions.
+- PHPStan: GREEN, 0 errors.
+- PHP-CS-Fixer dry-run: GREEN, 0 files requiring fixes.
+- Profile-scoped Gating: GREEN, 9 rules with 0 failures / 0 warnings / 0 skipped.
+- Behavioral coverage evidence regenerated successfully.
+- Aggregate `quality`, coverage, and Doctrine async admission were blocked before process start by Console MCP runtime capacity `ADMIT_LIGHT_ONLY` / `ENGINE_BACKLOG_HIGH`; this is execution-capacity state, not a Rewarding gate failure.
+- Fresh supplied Inspecting evidence remains applicable to PHP structure because no `src/` PHP was changed in this pass. A post-mutation Inspecting launch was attempted, but the orchestration call timed out before a durable result was returned; no RED Inspecting finding was observed.
+- The canonical full CanonScanning acceptance remains externally blocked by the already-documented CanonScanning `/MIR` behavior that recreates forbidden Gating owner state inside consumer `.gating/`. Re-running that producer unchanged would deterministically recreate the same Canon052 failure rather than validate Rewarding.
+- No product PHP, schema, route, browser/mobile UI, navigation, form, or user-flow behavior changed; visual evidence is not applicable.
